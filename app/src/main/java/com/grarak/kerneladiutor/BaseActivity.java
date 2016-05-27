@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (Utils.getBoolean("forceenglish", false, this)) Utils.setLocale("en_US", this);
 
         // Check if darktheme is in use and cache it as boolean
-        if (Utils.DARKTHEME = Utils.getBoolean("darktheme", false, this)) {
+        if (Utils.DARKTHEME = Utils.getBoolean("darktheme", true, this)) {
             super.setTheme(getDarkTheme());
             getWindow().getDecorView().getRootView().setBackgroundColor(getResources().getColor(R.color.black));
         }
