@@ -19,23 +19,22 @@ package com.grarak.kerneladiutor.utils.kernel;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.util.Log;
 
 import com.grarak.kerneladiutor.utils.Constants;
 import com.grarak.kerneladiutor.utils.Utils;
 import com.grarak.kerneladiutor.utils.root.Control;
 import com.kerneladiutor.library.root.RootUtils;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.net.InetAddress;
 
 /**
  * Created by willi on 02.01.15.
  */
 public class Misc implements Constants {
+
+    private static String[] mAvailableTCPCongestions;
 
     private static String VIBRATION_PATH;
     private static Integer VIBRATION_MAX;
@@ -64,11 +63,19 @@ public class Misc implements Constants {
     }
 
     public static String getCurTcpCongestion() {
-        return getTcpAvailableCongestions().get(0);
+        return getTcpAvailableCongestions(false).get(0);
     }
 
-    public static List<String> getTcpAvailableCongestions() {
-        return new ArrayList<>(Arrays.asList(Utils.readFile(TCP_AVAILABLE_CONGESTIONS).split(" ")));
+    public static List<String> getTcpAvailableCongestions(boolean sort) {
+        if (mAvailableTCPCongestions == null) mAvailableTCPCongestions = new String[0];
+        String value = Utils.readFile(TCP_AVAILABLE_CONGESTIONS);
+        if (value != null) {
+            mAvailableTCPCongestions = value.split(" ");
+            if (sort) {
+                Arrays.sort(mAvailableTCPCongestions);
+            }
+        }
+        return new ArrayList<>(Arrays.asList(mAvailableTCPCongestions));
     }
 
     public static boolean hasLedSpeed() {
