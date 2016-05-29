@@ -19,6 +19,7 @@ package com.grarak.kerneladiutor.utils.kernel;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.grarak.kerneladiutor.R;
@@ -528,6 +529,21 @@ public class Screen implements Constants {
     public static void activateScreenAutoHBM(boolean active, Context context) {
         Utils.saveBoolean("AutoHBM", active, context);
         AutoHighBrightnessModeService.AutoHBMSensorEnabled = active;
+        Intent intent = new Intent(context, AutoHighBrightnessModeService.class);
+        if (active) {
+            context.startService(intent);
+        }
+        else {
+            context.stopService(intent);
+        }
+    }
+
+    public static boolean isScreenAutoHBMSmoothingActive(Context context) {
+        return Utils.getBoolean("AutoHBM_Smoothing", false, context);
+    }
+
+    public static void activateScreenHBMSmoothing(boolean active, Context context) {
+        Utils.saveBoolean("AutoHBM_Smoothing", active, context);
     }
 
     public static int getAutoHBMThresh(Context context) {

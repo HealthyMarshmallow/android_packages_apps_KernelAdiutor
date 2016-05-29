@@ -448,6 +448,8 @@
     <string name="screen_value">Screen Value</string>
     <string name="screen_contrast">Screen Contrast</string>
     <string name="auto_high_brightness_mode">Automatic High Brightness Mode</string>
+    <string name="auto_high_brightness_smoothing">Smooth Lux Values for AutoHBM</string>
+    <string name="auto_high_brightness_smoothing_warning">Smoothing will cause some delay in significant lux changes causing HBM to toggle.</string>
     <string name="auto_high_brightness_mode_threshold">Automatic High Brightness Mode Threshold</string>
     <string name="high_brightness_mode">High Brightness Mode</string>
     <string name="gamma">Gamma</string>
@@ -934,7 +936,7 @@
     <string name="modification_summary">This application is being modified for various custom features that are not included in the original Kernel Adiutor.</string>
 
     <string name="modification_version">Modification Version</string>
-    <string name="modification_version_number" translatable="false">Build 9</string>
+    <string name="modification_version_number" translatable="false">Build 10</string>
 
     <string name="accessibility_service_label">KA Per App Monitor</string>
     <string name="accessibility_service_desc">Service to monitor when foreground app changes for per-app profile loading</string>

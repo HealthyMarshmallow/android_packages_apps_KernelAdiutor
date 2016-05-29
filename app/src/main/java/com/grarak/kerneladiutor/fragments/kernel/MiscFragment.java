@@ -32,7 +32,6 @@ import com.grarak.kerneladiutor.utils.Utils;
 import com.grarak.kerneladiutor.utils.kernel.Misc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -221,7 +220,7 @@ public class MiscFragment extends RecyclerViewFragment implements PopupCardView.
         addView(mNetworkDividerCard);
 
         try {
-            mTcpCongestionCard = new PopupCardView.DPopupCard(Misc.getTcpAvailableCongestions());
+            mTcpCongestionCard = new PopupCardView.DPopupCard(Misc.getTcpAvailableCongestions(true));
             mTcpCongestionCard.setTitle(getString(R.string.tcp));
             mTcpCongestionCard.setDescription(getString(R.string.tcp_summary));
             mTcpCongestionCard.setItem(Misc.getCurTcpCongestion());
@@ -263,7 +262,7 @@ public class MiscFragment extends RecyclerViewFragment implements PopupCardView.
     @Override
     public void onItemSelected(PopupCardView.DPopupCard dPopupCard, int position) {
         if (dPopupCard == mTcpCongestionCard)
-            Misc.setTcpCongestion(Misc.getTcpAvailableCongestions().get(position), getActivity());
+            Misc.setTcpCongestion(Misc.getTcpAvailableCongestions(true).get(position), getActivity());
     }
 
     @Override
