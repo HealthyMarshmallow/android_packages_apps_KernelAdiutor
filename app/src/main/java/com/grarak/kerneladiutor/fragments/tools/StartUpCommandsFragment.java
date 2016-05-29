@@ -82,7 +82,7 @@ public class StartUpCommandsFragment extends RecyclerViewFragment implements Car
         };
 
         for (Class mClass : classes)
-            if (Utils.getBoolean(mClass.getSimpleName() + "onboot", false, getContext())) {
+            if (Utils.getBoolean(mClass.getSimpleName() + "onboot", false, getActivity())) {
                 applys.addAll(Utils.getApplys(mClass));
             }
 
