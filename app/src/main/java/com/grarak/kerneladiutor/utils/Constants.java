@@ -647,8 +647,7 @@ public interface Constants {
     };
 
     String POWER_KEY_SUSPEND = "/sys/module/qpnp_power_on/parameters/pwrkey_suspend";
-
-//<<<<<<< HEAD
+    
     String WAKE_VIB_STRENGTH = "/sys/android_touch/vib_strength";
     String WAKE_ST2W_TIME = "/sys/android_touch/sweep_timeout";
     String WAKE_DT2W_TIMEBETWEENTAPS = "/sys/android_touch/dt2w_time";
@@ -659,10 +658,6 @@ public interface Constants {
     String[][] WAKE_ARRAY = {DT2W_ARRAY, S2W_ARRY, T2W_ARRAY, WAKE_MISC_ARRAY, SLEEP_MISC_ARRAY,  WAKE_TIMEOUT_ARRAY, DT2S_ARRAY,
             SLEEP_MISC_ARRAY, WAKE_MISC_ARRAY, T2W_ARRAY, POCKET_MODE_ARRAY, {LENIENT, GESTURE_CRTL, CAMERA_GESTURE, POCKET_MODE, POWER_KEY_SUSPEND,
             WAKE_DT2W_TIMEBETWEENTAPS, WAKE_DT2W_FEATHERX, WAKE_DT2W_FEATHERY, WAKE_VIB_STRENGTH, WAKE_ST2W_TIME, LENIENT }};
-//=======
-//    String[][] WAKE_ARRAY = {DT2W_ARRAY, S2W_ARRY, T2W_ARRAY, WAKE_MISC_ARRAY, SLEEP_MISC_ARRAY, WAKE_TIMEOUT_ARRAY,
-//            POCKET_MODE_ARRAY, {LENIENT, GESTURE_CRTL, CAMERA_GESTURE, POWER_KEY_SUSPEND}};
-//>>>>>>> d2376be68020cfdafc65ba6ac43270274f396a0c
 
     // Sound
     String SOUND_CONTROL_ENABLE = "/sys/module/snd_soc_wcd9320/parameters/enable_fs";
@@ -837,20 +832,34 @@ public interface Constants {
     // Misc
 
     // Vibration
-    Object[][] VIBRATION_ARRAY = {
-            // {Path, Max, Min}
-            {"/sys/class/timed_output/vibrator/amp", 100, 0},
-            {"/sys/class/timed_output/vibrator/level", 31, 12},
-            {"/sys/class/timed_output/vibrator/pwm_value", 100, 0}, // Read MAX MIN from sys
-            {"/sys/class/timed_output/vibrator/pwm_value_1p", 99, 53},
-            {"/sys/class/timed_output/vibrator/voltage_level", 3199, 1200},
-            {"/sys/class/timed_output/vibrator/vtg_level", 31, 12}, // Read MAX MIN from sys
-            {"/sys/class/timed_output/vibrator/vmax_mv", 3596, 116},
-            {"/sys/class/timed_output/vibrator/vmax_mv_strong", 3596, 116}, // Needs VIB_LIGHT path
-            {"/sys/devices/platform/tspdrv/nforce_timed", 127, 1},
-            {"/sys/devices/i2c-3/3-0033/vibrator/vib0/vib_duty_cycle", 100, 25}, // Needs enable path
-            {"/sys/module/qpnp_vibrator/parameters/vib_voltage", 31, 12},
-            {"/sys/vibrator/pwmvalue", 127, 0}
+    String[] VIBRATION_ARRAY = {
+            "/sys/module/qpnp_vibrator/parameters/vib_voltage",
+            "/sys/vibrator/pwmvalue",
+            "/sys/class/timed_output/vibrator/amp",
+            "/sys/class/timed_output/vibrator/level",
+            "/sys/class/timed_output/vibrator/vtg_level",
+            "/sys/devices/platform/tspdrv/nforce_timed",
+            "/sys/class/timed_output/vibrator/pwm_value",
+            "/sys/devices/i2c-3/3-0033/vibrator/vib0/vib_duty_cycle",
+            "/sys/devices/virtual/timed_output/vibrator/voltage_level",
+            "/sys/devices/virtual/timed_output/vibrator/pwm_value_1p",
+            "/sys/devices/virtual/timed_output/vibrator/vmax_mv_strong",
+            "/sys/devices/virtual/timed_output/vibrator/vmax_mv"
+    };
+
+    int[][] VIBRATION_MAX_MIN_ARRAY = {
+            {31, 12},
+            {127, 0},
+            {100, 0},
+            {31, 12},
+            {31, 12}, // Read MAX MIN from sys
+            {127, 1},
+            {100, 0}, // Read MAX MIN from sys
+            {100, 25}, // Needs enable path
+            {3199, 1200},
+            {99, 53},
+            {3596, 116}, // Needs VIB_LIGHT path
+            {3596, 116}
     };
 
     String VIB_LIGHT = "/sys/devices/virtual/timed_output/vibrator/vmax_mv_light";
@@ -862,7 +871,7 @@ public interface Constants {
     String LOGGER_LOG_ENABLED = "/sys/module/logger/parameters/log_enabled";
     String LOGD = "/system/bin/logd";
 
-    String[] LOGGER_ARRAY = {LOGGER_MODE, LOGGER_ENABLED, LOGGER_LOG_ENABLED, LOGD};
+    String[] LOGGER_ARRAY = {LOGGER_MODE, LOGGER_ENABLED, LOGGER_LOG_ENABLED, LOGD, "start", "stop"};
 
     // BCL
     String[] BCL_ARRAY = {"/sys/devices/qcom,bcl.38/mode","/sys/devices/qcom,bcl.39/mode", "/sys/devices/soc.0/qcom,bcl.60/mode" };
@@ -897,13 +906,11 @@ public interface Constants {
     String GETENFORCE = "getenforce";
     String SETENFORCE = "setenforce";
 
-    Object[][] MISC_ARRAY = {
+    String[][] MISC_ARRAY = {
             VIBRATION_ARRAY,
-            {VIB_LIGHT, VIB_ENABLE, SENSOR_IND_WAKELOCK, MSM_HSIC_HOST_WAKELOCK, WLAN_RX_WAKELOCK_DIVIDER,
-                    MSM_HSIC_WAKELOCK_DIVIDER, LOGGER_ENABLED, DYNAMIC_FSYNC, GENTLE_FAIR_SLEEPERS, BCL_HOTPLUG, POWER_SUSPEND_MODE,
+            {VIB_LIGHT, VIB_ENABLE, SENSOR_IND_WAKELOCK, LOGGER_ENABLED, DYNAMIC_FSYNC, GENTLE_FAIR_SLEEPERS, BCL_HOTPLUG,
                     POWER_SUSPEND_STATE, TCP_AVAILABLE_CONGESTIONS, HOSTNAME_KEY, ADB_OVER_WIFI, GETENFORCE, SETENFORCE, LED_SPEED_GREEN, LED_ACTIVE },
-            LOGGER_ARRAY, SMB135X_WAKELOCKS, WLAN_RX_WAKELOCKS, WLAN_CTRL_WAKELOCKS, WLAN_WAKELOCKS, CRC_ARRAY, FSYNC_ARRAY, BCL_ARRAY};
-
+            LOGGER_ARRAY, CRC_ARRAY, FSYNC_ARRAY, BCL_ARRAY};
 
     // Build prop
     String BUILD_PROP = "/system/build.prop";
