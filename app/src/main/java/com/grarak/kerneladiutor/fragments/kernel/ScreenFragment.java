@@ -854,7 +854,7 @@ public class ScreenFragment extends RecyclerViewFragment implements SeekBarCardV
         } else if (dSwitchCard == mScreenAutoHBMSmoothingCard) {
             Screen.activateScreenHBMSmoothing(checked, getActivity());
             if (checked) {
-                Utils.toast(getString(R.string.auto_high_brightness_smoothing_warning), getContext());
+                Utils.toast(getString(R.string.auto_high_brightness_smoothing_warning), getActivity());
             }
         } else if (dSwitchCard == mScreenHBMCard)
             Screen.activateScreenHBM(checked, getActivity());
