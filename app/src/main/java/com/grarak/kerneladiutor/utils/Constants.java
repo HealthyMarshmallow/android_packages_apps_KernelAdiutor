@@ -552,8 +552,8 @@ public interface Constants {
     String ZE551ML_MAX_BRIGHTNESS = "/sys/class/backlight/psb-bl/max_brightness";
 
     // Backlight Dimmer
-    String LM3630_BACKLIGHT_DIMMER = "/sys/module/lm3630_bl/parameters/backlight_dimmer";
-    String LM3630_MIN_BRIGHTNESS = "/sys/module/lm3630_bl/parameters/min_brightness";
+    String LM3630_BACKLIGHT_DIMMER = "/sys/module/lm3630/parameters/lm3630_min_backlight_reducer";
+    String LM3630_MIN_BRIGHTNESS = "/sys/module/lm3630/parameters/lm3630_min_backlight_set";
     String LM3630_BACKLIGHT_DIMMER_THRESHOLD = "/sys/module/lm3630_bl/parameters/backlight_threshold";
     String LM3630_BACKLIGHT_DIMMER_OFFSET = "/sys/module/lm3630_bl/parameters/backlight_offset";
 
