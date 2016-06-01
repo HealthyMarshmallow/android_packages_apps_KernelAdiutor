@@ -124,7 +124,7 @@ public class Screen implements Constants {
         if (MIN_BRIGHTNESS != null) {
             switch (MIN_BRIGHTNESS) {
                 case LM3630_MIN_BRIGHTNESS:
-                    return 50;
+                    return 255;
                 case MSM_BACKLIGHT_DIMMER:
                     return 100;
                 case ZE551ML_MIN_BRIGHTNESS:
