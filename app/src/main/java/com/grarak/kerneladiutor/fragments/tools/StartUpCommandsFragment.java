@@ -111,7 +111,6 @@ public class StartUpCommandsFragment extends RecyclerViewFragment implements Car
 
             mStartUpCommands = new CardViewItem.DCardView[commandItems.size()];
             for (int i = 0; i < commands.size(); i++) {
-                String command = commands.get(i);
                 mStartUpCommands[i] = new CardViewItem.DCardView();
                 mStartUpCommands[i].setDescription(commands.get(i));
                 mStartUpCommands[i].setOnDCardListener(this);
@@ -157,9 +156,7 @@ public class StartUpCommandsFragment extends RecyclerViewFragment implements Car
         }
         for (int i = 0; i < mStartUpCommands.length; i++)
         if (dCardView == mStartUpCommands[i]) {
-            final StringBuilder command = new StringBuilder(mStartUpCommands[i].getDescription().length());
-            command.append(mStartUpCommands[i].getDescription());
-            Control.deletespecificcommand(getActivity(), null, command.toString());
+            Control.deletespecificcommand(getActivity(), null, String.valueOf(mStartUpCommands[i].getDescription()));
             forcerefresh(getActivity());
         }
     }
