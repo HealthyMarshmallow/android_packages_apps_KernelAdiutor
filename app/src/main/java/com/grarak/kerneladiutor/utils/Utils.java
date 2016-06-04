@@ -520,6 +520,13 @@ public class Utils implements Constants {
         }
     }
 
+    public static boolean isLetter (String testchar) {
+        if (Character.isLetter(testchar.charAt(0))) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean is64bit() {
         if (Build.VERSION.SDK_INT < 21) {
             return false;
@@ -528,5 +535,14 @@ public class Utils implements Constants {
                 return true;
         }
         return false;
+    }
+
+    public static String getsysfspath(String[] paths) {
+        for (int i = 0; i < paths.length; i++) {
+            if (Utils.existFile(paths[i])) {
+                return paths[i];
+            }
+        }
+        return "";
     }
 }

@@ -187,6 +187,7 @@
   <string name="override_vmin_summary">Deaktivieren, um Hersteller-Limits zu entfernen.</string>
   
   <!-- CPU Hotplug -->
+  <string name="no_enable_toggle">Achtung: Dieser Hotplug hat keinen Ein-/Aus-Schalter. Beachten Sie, dass mehrere gleichzeitig aktivierte Hotplugs Fehlfunktionen verursachen können.</string>
   <string name="mpdecision">MPDecision</string>
   <string name="mpdecision_summary">QCOMs Hotplugging Lösung. Sie werden wahrscheinlich Schwierigkeiten mit der Änderung der Frequenzen feststellen, wenn diese Funktion aktiv ist.</string>
   <string name="intelliplug">IntelliPlug</string>
@@ -693,7 +694,6 @@
   <string name="power_suspend_mode">Power Suspend-Modus</string>
   <string name="power_suspend_mode_summary">Kernel-Modus, LCD-Hooks und Highest Level Hook werden automatisch durch den Kernel verwaltet. Benutzer-Modus wählen, um den Power Suspend-Status manuell zu ändern.</string>
   <string name="state_notifier_mode">Benachrichtigungs-Modus</string>
-  <string name="state_notifier_mode_summary">FB-Notifiers verwenden.</string>
   <string name="autosleep">Auto-sleep</string>
   <string name="userspace">User-space</string>
   <string name="lcd_panel">LCD-Panel</string>
