@@ -39,8 +39,8 @@ import java.util.List;
 public class CPU implements Constants {
 
     private static int cores;
-    private static int bigCore = -1;
-    private static int LITTLEcore = -1;
+    public static int bigCore = -1;
+    public static int LITTLEcore = -1;
     private static Integer[][] mFreqs;
     private static String[][] mAvailableGovernors;
     private static String[] mMcPowerSavingItems;
@@ -565,7 +565,7 @@ public class CPU implements Constants {
             String value = Utils.readFile(CPU_AVAILABLE_GOVERNORS);
             if (value != null) {
                 mAvailableGovernors[core] = value.split(" ");
-                Arrays.sort(mAvailableGovernors[core]);
+                Collections.sort(Arrays.asList(mAvailableGovernors[core]), String.CASE_INSENSITIVE_ORDER);
             }
         }
         if (mAvailableGovernors[core] == null) return null;
