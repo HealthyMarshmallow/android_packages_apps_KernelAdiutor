@@ -64,7 +64,7 @@ public class CPUVoltageFragment extends RecyclerViewFragment implements
     public void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
 
-        SharedPreferences storedvoltagetable = getContext().getSharedPreferences("voltage_table", 0);
+        SharedPreferences storedvoltagetable = getActivity().getSharedPreferences("voltage_table", 0);
         for( Map.Entry entry : storedvoltagetable.getAll().entrySet() )
             voltagetable.put( entry.getKey().toString(), entry.getValue().toString() );
 
