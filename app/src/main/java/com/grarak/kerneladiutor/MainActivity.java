@@ -49,6 +49,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.crashlytics.android.Crashlytics;
 import com.grarak.kerneladiutor.elements.DAdapter;
 import com.grarak.kerneladiutor.elements.ScrimInsetsFrameLayout;
 import com.grarak.kerneladiutor.elements.SplashView;
@@ -104,6 +105,7 @@ import com.grarak.kerneladiutor.utils.tools.Buildprop;
 import com.grarak.kerneladiutor.utils.kernel.CoreControl;
 import com.kerneladiutor.library.root.RootUtils;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +144,7 @@ public class MainActivity extends BaseActivity implements Constants {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         // If there is a previous activity running, kill it
         if (context != null) ((Activity) context).finish();
         context = this;
@@ -153,7 +156,7 @@ public class MainActivity extends BaseActivity implements Constants {
         else // Use an AsyncTask to initialize everything
             new Task().execute();
 
-        if (Screen.hasScreenHBM() && !isMyServiceRunning(AutoHighBrightnessModeService.class)) {
+        if (Screen.hasScreenHBM() && Utils.getBoolean("AutoHBM", false, getApplicationContext()) && !isMyServiceRunning(AutoHighBrightnessModeService.class)) {
             startService(new Intent(this, AutoHighBrightnessModeService.class));
         }
     }
