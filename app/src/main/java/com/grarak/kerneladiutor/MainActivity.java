@@ -107,8 +107,6 @@ import com.kerneladiutor.library.root.RootUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.fabric.sdk.android.Fabric;
-
 /**
  * Created by willi on 01.12.14.
  */

@@ -65,13 +65,13 @@ public class CPUVoltageFragment extends RecyclerViewFragment implements
     @Override
     public void preInit(Bundle savedInstanceState) {
         super.preInit(savedInstanceState);
-        SharedPreferences storedvoltagetable = getContext().getSharedPreferences("voltage_table", 0);
+        SharedPreferences storedvoltagetable = getActivity().getSharedPreferences("voltage_table", 0);
         // Save the current Voltage table if it doesn't exist. This will prevent issues in the table if they open it before a reboot.
         // On reboot, the default table will overwrite this as it will have any adjustments done since boot as the reference. This is imperfect, but no better way to do it.
         String toasttext = "";
         if (storedvoltagetable.getString(CPUVoltage.getFreqs().get(0), "-1").equals("-1")) {
             toasttext = getString(R.string.non_default_reference) + " -- ";
-            CPUVoltage.storeVoltageTable(getContext());
+            CPUVoltage.storeVoltageTable(getActivity());
         }
         Utils.toast(toasttext + getString(R.string.voltages_toast_notification), getActivity(), Toast.LENGTH_LONG);
     }
