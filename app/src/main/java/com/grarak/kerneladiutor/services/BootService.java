@@ -54,9 +54,6 @@ import com.grarak.kerneladiutor.utils.kernel.CoreControl;
 import com.grarak.kerneladiutor.utils.kernel.Screen;
 import com.kerneladiutor.library.root.RootUtils;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,18 +86,7 @@ public class BootService extends Service {
         final List<String> applys = new ArrayList<>();
         final List<String> plugins = new ArrayList<>();
 
-        List<String> freqs = CPUVoltage.getFreqs();
-        List<String> voltages = CPUVoltage.getVoltages();
-        Map<String, String> freqtable = new HashMap<String, String>();
-
-        // Store Kernel's Stock Freq/Voltage table
-        SharedPreferences.Editor preferences = getSharedPreferences("voltage_table", 0).edit();
-        for (int i = 0; i < freqs.size(); i++) {
-            freqtable.put(freqs.get(i), voltages.get(i));
-            preferences.putString(freqs.get(i), voltages.get(i));
-        }
-        preferences.commit();
-        Log.i(Constants.TAG, "FreqTable: " + freqtable);
+        CPUVoltage.storeVoltageTable(getApplicationContext());
 
 
         if (Screen.hasScreenHBM() && Utils.getBoolean("AutoHBM", false, getApplicationContext())) {
@@ -226,7 +212,7 @@ public class BootService extends Service {
     }
 
     private void toast(final String message) {
-        if (Utils.getBoolean("applyonbootshowtoast", true, getApplicationContext()))
+        if (Utils.getBoolean("applyonbootshowtoast", true, this))
             hand.post(new Runnable() {
                 @Override
                 public void run() {
