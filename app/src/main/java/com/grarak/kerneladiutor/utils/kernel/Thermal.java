@@ -73,6 +73,18 @@ public class Thermal implements Constants {
         return Utils.existFile(CONF_ALLOWED_MAX_FREQ);
     }
 
+    public static void setBrickedMaxFreq(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_BRICKED_MAX_FREQ, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getBrickedMaxFreq() {
+        return Utils.stringToInt(Utils.readFile(CONF_BRICKED_MAX_FREQ));
+    }
+
+    public static boolean hasBrickedMaxFreq() {
+        return Utils.existFile(CONF_BRICKED_MAX_FREQ);
+    }
+
     public static void setAllowedMaxHigh(int value, Context context) {
         Control.runCommand(String.valueOf(value), CONF_ALLOWED_MAX_HIGH, Control.CommandType.GENERIC, context);
     }

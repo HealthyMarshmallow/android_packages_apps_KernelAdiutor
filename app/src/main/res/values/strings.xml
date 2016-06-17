@@ -404,6 +404,7 @@
     <string name="allowed_max_low">Phase 3: Allowed Max Low</string>
     <string name="allowed_max_high">Phase 3: Allowed Max High</string>
     <string name="allowed_max_freq">Phase 3: Allowed Max Frequency</string>
+    <string name="bricked_max_freq">Bricked Max Frequency</string>
     <string name="check_interval">Check Interval</string>
     <string name="shutdown_temp">Shutdown Temperature</string>
     <string name="temp_throttle">Temperature Throttle</string>

@@ -379,6 +379,7 @@ public interface Constants {
     String CONF_ALLOWED_MAX_LOW = MSM_THERMAL_CONF + "/allowed_max_low";
     String CONF_ALLOWED_MAX_HIGH = MSM_THERMAL_CONF + "/allowed_max_high";
     String CONF_ALLOWED_MAX_FREQ = MSM_THERMAL_CONF + "/allowed_max_freq";
+    String CONF_BRICKED_MAX_FREQ = MSM_THERMAL_CONF + "/user_max_freq";
     String CONF_CHECK_INTERVAL_MS = MSM_THERMAL_CONF + "/poll_ms";
     String CONF_SHUTDOWN_TEMP = MSM_THERMAL_CONF + "/shutdown_temp";
 

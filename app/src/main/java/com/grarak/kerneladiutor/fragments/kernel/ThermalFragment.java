@@ -69,6 +69,7 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
     private SeekBarCardView.DSeekBarCard mAllowedMaxLowCard;
     private SeekBarCardView.DSeekBarCard mAllowedMaxHighCard;
     private PopupCardView.DPopupCard mAllowedMaxFreqCard;
+    private PopupCardView.DPopupCard mBrickedMaxFreqCard;
     private SeekBarCardView.DSeekBarCard mCheckIntervalMsCard;
     private SeekBarCardView.DSeekBarCard mShutdownFreqCard;
 
@@ -506,6 +507,18 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             views.add(mAllowedMaxFreqCard);
         }
 
+        if (Thermal.hasBrickedMaxFreq() && CPU.getFreqs() != null) {
+            List<String> list = new ArrayList<>();
+            for (int freq : CPU.getFreqs()) list.add((freq / 1000) + getString(R.string.mhz));
+
+            mBrickedMaxFreqCard = new PopupCardView.DPopupCard(list);
+            mBrickedMaxFreqCard.setTitle(getString(R.string.bricked_max_freq));
+            mBrickedMaxFreqCard.setItem((Thermal.getBrickedMaxFreq() / 1000) + getString(R.string.mhz));
+            mBrickedMaxFreqCard.setOnDPopupCardListener(this);
+
+            views.add(mBrickedMaxFreqCard);
+        }
+
         if (Thermal.hasCheckIntervalMs()) {
             List<String> list = new ArrayList<>();
             for (int i = 0; i < 61; i++) list.add((i * 50) + getString(R.string.ms));
@@ -619,6 +632,8 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             Thermal.setAllowedMidFreq(CPU.getFreqs().get(position), getActivity());
         else if (dPopupCard == mAllowedMaxFreqCard)
             Thermal.setAllowedMaxFreq(CPU.getFreqs().get(position), getActivity());
+        else if (dPopupCard == mBrickedMaxFreqCard)
+            Thermal.setBrickedMaxFreq(CPU.getFreqs().get(position), getActivity());
         else if (dPopupCard == mFrancoThermalStageOneCard)
             Thermal.setFrancoThermalStageOne(CPU.getFreqs().get(position), getActivity());
         else if (dPopupCard == mFrancoThermalStageTwoCard)
