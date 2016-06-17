@@ -393,6 +393,18 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
     private void msmThermalInit() {
         List<DAdapter.DView> views = new ArrayList<>();
 
+        if (Thermal.hasBrickedMaxFreq() && CPU.getFreqs() != null) {
+            List<String> list = new ArrayList<>();
+            for (int freq : CPU.getFreqs()) list.add((freq / 1000) + getString(R.string.mhz));
+
+            mBrickedMaxFreqCard = new PopupCardView.DPopupCard(list);
+            mBrickedMaxFreqCard.setTitle(getString(R.string.bricked_max_freq));
+            mBrickedMaxFreqCard.setItem((Thermal.getBrickedMaxFreq() / 1000) + getString(R.string.mhz));
+            mBrickedMaxFreqCard.setOnDPopupCardListener(this);
+
+            views.add(mBrickedMaxFreqCard);
+        }
+
         if (Thermal.hasAllowedLowLow()) {
             List<String> list = new ArrayList<>();
             for (double i = 40; i < 101; i++)
@@ -505,18 +517,6 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             mAllowedMaxFreqCard.setOnDPopupCardListener(this);
 
             views.add(mAllowedMaxFreqCard);
-        }
-
-        if (Thermal.hasBrickedMaxFreq() && CPU.getFreqs() != null) {
-            List<String> list = new ArrayList<>();
-            for (int freq : CPU.getFreqs()) list.add((freq / 1000) + getString(R.string.mhz));
-
-            mBrickedMaxFreqCard = new PopupCardView.DPopupCard(list);
-            mBrickedMaxFreqCard.setTitle(getString(R.string.bricked_max_freq));
-            mBrickedMaxFreqCard.setItem((Thermal.getBrickedMaxFreq() / 1000) + getString(R.string.mhz));
-            mBrickedMaxFreqCard.setOnDPopupCardListener(this);
-
-            views.add(mBrickedMaxFreqCard);
         }
 
         if (Thermal.hasCheckIntervalMs()) {
