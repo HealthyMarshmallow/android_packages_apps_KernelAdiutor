@@ -66,6 +66,12 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
     private SeekBarCardView.DSeekBarCard mAllowedMidLowCard;
     private SeekBarCardView.DSeekBarCard mAllowedMidHighCard;
     private PopupCardView.DPopupCard mAllowedMidFreqCard;
+    private SeekBarCardView.DSeekBarCard mAllowedMid2LowCard;
+    private SeekBarCardView.DSeekBarCard mAllowedMid2HighCard;
+    private PopupCardView.DPopupCard mAllowedMid2FreqCard;
+    private SeekBarCardView.DSeekBarCard mAllowedMid3LowCard;
+    private SeekBarCardView.DSeekBarCard mAllowedMid3HighCard;
+    private PopupCardView.DPopupCard mAllowedMid3FreqCard;
     private SeekBarCardView.DSeekBarCard mAllowedMaxLowCard;
     private SeekBarCardView.DSeekBarCard mAllowedMaxHighCard;
     private PopupCardView.DPopupCard mAllowedMaxFreqCard;
@@ -479,6 +485,82 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             mAllowedMidFreqCard.setOnDPopupCardListener(this);
 
             views.add(mAllowedMidFreqCard);
+        }
+
+        if (Thermal.hasAllowedMid2Low()) {
+            List<String> list = new ArrayList<>();
+            for (double i = 40; i < 101; i++)
+                list.add(Utils.formatCelsius(i) + " " + Utils.celsiusToFahrenheit(i));
+
+            mAllowedMid2LowCard = new SeekBarCardView.DSeekBarCard(list);
+            mAllowedMid2LowCard.setTitle(getString(R.string.allowed_mid2_low));
+            mAllowedMid2LowCard.setProgress(Thermal.getAllowedMid2Low() - 40);
+            mAllowedMid2LowCard.setOnDSeekBarCardListener(this);
+
+            views.add(mAllowedMid2LowCard);
+        }
+
+        if (Thermal.hasAllowedMid2High()) {
+            List<String> list = new ArrayList<>();
+            for (double i = 40; i < 101; i++)
+                list.add(Utils.formatCelsius(i) + " " + Utils.celsiusToFahrenheit(i));
+
+            mAllowedMid2HighCard = new SeekBarCardView.DSeekBarCard(list);
+            mAllowedMid2HighCard.setTitle(getString(R.string.allowed_mid2_high));
+            mAllowedMid2HighCard.setProgress(Thermal.getAllowedMid2High() - 40);
+            mAllowedMid2HighCard.setOnDSeekBarCardListener(this);
+
+            views.add(mAllowedMid2HighCard);
+        }
+
+        if (Thermal.hasAllowedMid2Freq() && CPU.getFreqs() != null) {
+            List<String> list = new ArrayList<>();
+            for (int freq : CPU.getFreqs()) list.add((freq / 1000) + getString(R.string.mhz));
+
+            mAllowedMid2FreqCard = new PopupCardView.DPopupCard(list);
+            mAllowedMid2FreqCard.setTitle(getString(R.string.allowed_mid2_freq));
+            mAllowedMid2FreqCard.setItem((Thermal.getAllowedMid2Freq() / 1000) + getString(R.string.mhz));
+            mAllowedMid2FreqCard.setOnDPopupCardListener(this);
+
+            views.add(mAllowedMid2FreqCard);
+        }
+
+        if (Thermal.hasAllowedMid3Low()) {
+            List<String> list = new ArrayList<>();
+            for (double i = 40; i < 101; i++)
+                list.add(Utils.formatCelsius(i) + " " + Utils.celsiusToFahrenheit(i));
+
+            mAllowedMid3LowCard = new SeekBarCardView.DSeekBarCard(list);
+            mAllowedMid3LowCard.setTitle(getString(R.string.allowed_mid3_low));
+            mAllowedMid3LowCard.setProgress(Thermal.getAllowedMid3Low() - 40);
+            mAllowedMid3LowCard.setOnDSeekBarCardListener(this);
+
+            views.add(mAllowedMid3LowCard);
+        }
+
+        if (Thermal.hasAllowedMid3High()) {
+            List<String> list = new ArrayList<>();
+            for (double i = 40; i < 101; i++)
+                list.add(Utils.formatCelsius(i) + " " + Utils.celsiusToFahrenheit(i));
+
+            mAllowedMid3HighCard = new SeekBarCardView.DSeekBarCard(list);
+            mAllowedMid3HighCard.setTitle(getString(R.string.allowed_mid3_high));
+            mAllowedMid3HighCard.setProgress(Thermal.getAllowedMid3High() - 40);
+            mAllowedMid3HighCard.setOnDSeekBarCardListener(this);
+
+            views.add(mAllowedMid3HighCard);
+        }
+
+        if (Thermal.hasAllowedMid3Freq() && CPU.getFreqs() != null) {
+            List<String> list = new ArrayList<>();
+            for (int freq : CPU.getFreqs()) list.add((freq / 1000) + getString(R.string.mhz));
+
+            mAllowedMid3FreqCard = new PopupCardView.DPopupCard(list);
+            mAllowedMid3FreqCard.setTitle(getString(R.string.allowed_mid3_freq));
+            mAllowedMid3FreqCard.setItem((Thermal.getAllowedMid3Freq() / 1000) + getString(R.string.mhz));
+            mAllowedMid3FreqCard.setOnDPopupCardListener(this);
+
+            views.add(mAllowedMid3FreqCard);
         }
 
         if (Thermal.hasAllowedMaxLow()) {

@@ -394,6 +394,12 @@ public interface Constants {
     String CONF_ALLOWED_MID_LOW = MSM_THERMAL_CONF + "/allowed_mid_low";
     String CONF_ALLOWED_MID_HIGH = MSM_THERMAL_CONF + "/allowed_mid_high";
     String CONF_ALLOWED_MID_FREQ = MSM_THERMAL_CONF + "/allowed_mid_freq";
+    String CONF_ALLOWED_MID2_LOW = MSM_THERMAL_CONF + "/allowed_mid2_low";
+    String CONF_ALLOWED_MID2_HIGH = MSM_THERMAL_CONF + "/allowed_mid2_high";
+    String CONF_ALLOWED_MID2_FREQ = MSM_THERMAL_CONF + "/allowed_mid2_freq";
+    String CONF_ALLOWED_MID3_LOW = MSM_THERMAL_CONF + "/allowed_mid3_low";
+    String CONF_ALLOWED_MID3_HIGH = MSM_THERMAL_CONF + "/allowed_mid3_high";
+    String CONF_ALLOWED_MID3_FREQ = MSM_THERMAL_CONF + "/allowed_mid3_freq";
     String CONF_ALLOWED_MAX_LOW = MSM_THERMAL_CONF + "/allowed_max_low";
     String CONF_ALLOWED_MAX_HIGH = MSM_THERMAL_CONF + "/allowed_max_high";
     String CONF_ALLOWED_MAX_FREQ = MSM_THERMAL_CONF + "/allowed_max_freq";

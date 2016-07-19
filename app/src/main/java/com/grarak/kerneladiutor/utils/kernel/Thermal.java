@@ -145,6 +145,78 @@ public class Thermal implements Constants {
         return Utils.existFile(CONF_ALLOWED_MID_LOW);
     }
 
+    public static void setAllowedMid2Freq(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_ALLOWED_MID2_FREQ, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getAllowedMid2Freq() {
+        return Utils.stringToInt(Utils.readFile(CONF_ALLOWED_MID2_FREQ));
+    }
+
+    public static boolean hasAllowedMid2Freq() {
+        return Utils.existFile(CONF_ALLOWED_MID2_FREQ);
+    }
+
+    public static void setAllowedMid2High(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_ALLOWED_MID2_HIGH, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getAllowedMid2High() {
+        return Utils.stringToInt(Utils.readFile(CONF_ALLOWED_MID2_HIGH));
+    }
+
+    public static boolean hasAllowedMid2High() {
+        return Utils.existFile(CONF_ALLOWED_MID2_HIGH);
+    }
+
+    public static void setAllowedMid2Low(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_ALLOWED_MID2_LOW, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getAllowedMid2Low() {
+        return Utils.stringToInt(Utils.readFile(CONF_ALLOWED_MID2_LOW));
+    }
+
+    public static boolean hasAllowedMid2Low() {
+        return Utils.existFile(CONF_ALLOWED_MID2_LOW);
+    }
+
+    public static void setAllowedMid3Freq(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_ALLOWED_MID3_FREQ, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getAllowedMid3Freq() {
+        return Utils.stringToInt(Utils.readFile(CONF_ALLOWED_MID3_FREQ));
+    }
+
+    public static boolean hasAllowedMid3Freq() {
+        return Utils.existFile(CONF_ALLOWED_MID3_FREQ);
+    }
+
+    public static void setAllowedMid3High(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_ALLOWED_MID3_HIGH, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getAllowedMid3High() {
+        return Utils.stringToInt(Utils.readFile(CONF_ALLOWED_MID3_HIGH));
+    }
+
+    public static boolean hasAllowedMid3High() {
+        return Utils.existFile(CONF_ALLOWED_MID3_HIGH);
+    }
+
+    public static void setAllowedMid3Low(int value, Context context) {
+        Control.runCommand(String.valueOf(value), CONF_ALLOWED_MID3_LOW, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getAllowedMid3Low() {
+        return Utils.stringToInt(Utils.readFile(CONF_ALLOWED_MID3_LOW));
+    }
+
+    public static boolean hasAllowedMid3Low() {
+        return Utils.existFile(CONF_ALLOWED_MID3_LOW);
+    }
+
     public static void setAllowedLowFreq(int value, Context context) {
         Control.runCommand(String.valueOf(value), CONF_ALLOWED_LOW_FREQ, Control.CommandType.GENERIC, context);
     }
