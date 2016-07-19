@@ -86,12 +86,17 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
         "\nDeep Sleep: " + getDurationBreakdown(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis())
         );
         addView(muptimeCard);
-
+        int wasoffline = 0;
         for (int i = 0; i < CPU.getCoreCount(); i++) {
-            Log.d(TAG, "Reading core "+i);
+            if (!CPU.isCoreOnline(i)) {
+                wasoffline = 1;
+                CPU.activateCore(i, true, getContext());
+            }
             // <Freq, time>
-            double total_time = 0;
-            Map<String, String> freq_use_list = new HashMap<>();
+            int total_time = 0;
+            Map<Integer, Integer> freq_use_list = new HashMap<>();
+            StringBuilder unusedStates = new StringBuilder();
+
             try {
                 FileInputStream fileInputStream = new FileInputStream(Utils.getsysfspath(CPU_TIME_IN_STATE_ARRAY, i));
                 InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -100,12 +105,10 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
                     String line;
                     String[] linePieces;
                     while ((line = buffreader.readLine()) != null) {
-                        Log.d(TAG, "Line = "+line);
                         linePieces = line.split(" ");
                         total_time = total_time + Integer.parseInt(linePieces[1]);
-                        freq_use_list.put(linePieces[0], linePieces[1]);
+                        freq_use_list.put(Integer.parseInt(linePieces[0]), Integer.parseInt(linePieces[1]));
                     }
-                    fileInputStream.close();
                     inputStreamReader.close();
                     buffreader.close();
                 }
@@ -115,19 +118,25 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
                 // No reason to continue to card generation if there weren't any stats. Let's check the next core.
                 continue;
             }
-            List<Integer> allfreqs = CPU.getFreqs();
 
-            String unused_states = "";
-
+            List<Integer> allfreqs = CPU.getFreqs(i);
             LinearLayout uiStatesView = new LinearLayout(getActivity());
             uiStatesView.setOrientation(LinearLayout.VERTICAL);
             CardViewItem.DCardView frequencyCard = new CardViewItem.DCardView();
-            frequencyCard.setTitle("Core: " + i + " - Time in States.  (Online: " + getDurationBreakdown((long)total_time * 10) + ")");
+            frequencyCard.setTitle("Core: " + i + " - Time in States.  (Online: " + getDurationBreakdown(total_time * 10) + ")");
             frequencyCard.setView(uiStatesView);
             frequencyCard.setFullSpan(true);
             for (int x = 0; x < freq_use_list.size(); x++) {
-                double freq_time = (double)Utils.stringToInt(freq_use_list.get(Integer.toString(allfreqs.get(x))));
-                int pct = (int)Math.round(freq_time / total_time * 100);
+                if(allfreqs.size() < x || allfreqs.get(x) == null){
+                    continue;
+                }
+
+                Integer time = freq_use_list.get(allfreqs.get(x));
+                if(time == null){
+                    continue;
+                }
+                int freq_time = time;
+                int pct = total_time > 0 ? (freq_time * 100) / total_time : 0;
                 //Limit the freqs shown to only anything with at least 1% use
                 if (pct >= 1) {
                     FrameLayout layout = (FrameLayout) LayoutInflater.from(getActivity())
@@ -143,20 +152,28 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
                     freqText.setText(allfreqs.get(x) / 1000 + "Mhz");
                     perText.setText(pct + "%");
                     // Multiple the time_in_state time value by 10 as it is stored in UserTime Units (10ms)
-                    durText.setText(getDurationBreakdown((Utils.stringToLong(freq_use_list.get(Integer.toString(allfreqs.get(x)))) * 10)));
+                    durText.setText(getDurationBreakdown((freq_use_list.get(allfreqs.get(x))) * 10));
                     bar.setProgress(pct);
 
                     uiStatesView.addView(layout);
                 } else {
-                    unused_states = unused_states + (allfreqs.get(x)/ 1000 + "MHZ, ");
+                    if(unusedStates.length() > 0){
+                        unusedStates.append(", ");
+                    }
+                    unusedStates.append(allfreqs.get(x)/ 1000).append("MHZ");
                 }
             }
             addView(frequencyCard);
-            if (!unused_states.isEmpty()) {
+            if (unusedStates.length() > 0) {
                 CardViewItem.DCardView mUnUsedStatesCard = new CardViewItem.DCardView();
                 mUnUsedStatesCard.setTitle("Core: " + i + " Unused States: (<1%)");
-                mUnUsedStatesCard.setDescription(unused_states.substring(0, unused_states.length()-2));
+                mUnUsedStatesCard.setDescription(unusedStates.toString());
                 addView(mUnUsedStatesCard);
+            }
+
+            if (wasoffline == 1) {
+                CPU.activateCore(i, false, getContext());
+                wasoffline = 0;
             }
         }
 
@@ -172,9 +189,11 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
      */
     public static String getDurationBreakdown(long millis)
     {
-        if(millis < 0)
+        StringBuilder sb = new StringBuilder(64);
+        if(millis <= 0)
         {
-            throw new IllegalArgumentException("Duration must be greater than zero!");
+            sb.append("00m00s");
+            return sb.toString();
         }
 
         long days = TimeUnit.MILLISECONDS.toDays(millis);
@@ -185,7 +204,6 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
         millis -= TimeUnit.MINUTES.toMillis(minutes);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
 
-        StringBuilder sb = new StringBuilder(64);
         if (days > 0) {
             sb.append(days);
             sb.append("d");
@@ -198,7 +216,7 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
         sb.append("m");
         sb.append(String.format("%02d", seconds));
         sb.append("s");
-        return(sb.toString());
+        return sb.toString();
     }
 
 }
