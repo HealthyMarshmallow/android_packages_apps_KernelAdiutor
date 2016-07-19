@@ -521,7 +521,7 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
 
         if (Thermal.hasCheckIntervalMs()) {
             List<String> list = new ArrayList<>();
-            for (int i = 0; i < 61; i++) list.add((i * 50) + getString(R.string.ms));
+            for (int i = 0; i < 201; i++) list.add((i * 50) + getString(R.string.ms));
 
             mCheckIntervalMsCard = new SeekBarCardView.DSeekBarCard(list);
             mCheckIntervalMsCard.setTitle(getString(R.string.check_interval));
