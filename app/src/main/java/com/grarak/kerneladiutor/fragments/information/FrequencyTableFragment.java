@@ -90,7 +90,7 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
         for (int i = 0; i < CPU.getCoreCount(); i++) {
             if (!CPU.isCoreOnline(i)) {
                 wasoffline = 1;
-                CPU.activateCore(i, true, getContext());
+                CPU.activateCore(i, true, getActivity());
             }
             // <Freq, time>
             int total_time = 0;
@@ -172,7 +172,7 @@ public class FrequencyTableFragment extends RecyclerViewFragment implements Cons
             }
 
             if (wasoffline == 1) {
-                CPU.activateCore(i, false, getContext());
+                CPU.activateCore(i, false, getActivity());
                 wasoffline = 0;
             }
         }
