@@ -878,7 +878,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
 
             if (CPUHotplug.hasMsmHotplugUpdateRate()) {
                 List<String> list = new ArrayList<>();
-                for (int i = 0; i < 61; i++)
+                for (int i = 0; i < 201; i++)
                     list.add(String.valueOf(i));
 
                 mMsmHotplugUpdateRateCard = new SeekBarCardView.DSeekBarCard(list);
