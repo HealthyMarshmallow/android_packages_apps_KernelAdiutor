@@ -17,10 +17,12 @@
 package com.grarak.kerneladiutor.fragments.kernel;
 
 import android.os.Bundle;
+import android.text.InputType;
 
 import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.elements.DAdapter;
 import com.grarak.kerneladiutor.elements.DDivider;
+import com.grarak.kerneladiutor.elements.cards.EditTextCardView;
 import com.grarak.kerneladiutor.elements.cards.PopupCardView;
 import com.grarak.kerneladiutor.elements.cards.SeekBarCardView;
 import com.grarak.kerneladiutor.elements.cards.SwitchCardView;
@@ -63,6 +65,7 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
     private SwitchCardView.DSwitchCard mSimpleThermalEnableCard;
     private SeekBarCardView.DSeekBarCard mSimpleThermalSamplingMs;
     private PopupCardView.DPopupCard mSimpleThermalUserMaxFreq;
+    private EditTextCardView.DEditTextCard[] mSimpleThermalZone;
 
     private SeekBarCardView.DSeekBarCard mAllowedLowLowCard;
     private SeekBarCardView.DSeekBarCard mAllowedLowHighCard;
@@ -141,6 +144,31 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             mSimpleThermalUserMaxFreq.setOnDPopupCardListener(this);
 
             addView(mSimpleThermalUserMaxFreq);
+        }
+
+        mSimpleThermalZone = new EditTextCardView.DEditTextCard[8];
+        for (int i = 0; i < 8; i++) {
+            if (!Thermal.hasSimpleThermalZone(i))
+                break;
+
+            mSimpleThermalZone[i] = new EditTextCardView.DEditTextCard();
+            mSimpleThermalZone[i].setTitle(getString(R.string.msm_thermal_simple_zone) + String.valueOf(i));
+            String zoneValue = Thermal.getSimpleThermalZone(i);
+            mSimpleThermalZone[i].setDescription(zoneValue);
+            mSimpleThermalZone[i].setValue(zoneValue);
+            mSimpleThermalZone[i].setInputType(InputType.TYPE_CLASS_TEXT);
+            mSimpleThermalZone[i].setOnDEditTextCardListener(new EditTextCardView.DEditTextCard.OnDEditTextCardListener() {
+                @Override
+                public void onApply(EditTextCardView.DEditTextCard dEditTextCard, String value) {
+                    for (int i = 0; i < 8; i++)
+                        if (dEditTextCard == mSimpleThermalZone[i]) {
+                            Thermal.setSimpleThermalZone(i, value, getActivity());
+                            dEditTextCard.setDescription(value);
+                        }
+                }
+            });
+
+            addView(mSimpleThermalZone[i]);
         }
     }
 

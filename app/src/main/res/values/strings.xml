@@ -446,6 +446,7 @@
     <string name="msm_thermal_simple_summary">An in-kernel replacement for QCOM Thermal. Developed by SultanXDA.</string>
     <string name="msm_thermal_simple_user_maxfreq">User max frequency</string>
     <string name="msm_thermal_simple_sampling_ms">Check interval</string>
+    <string name="msm_thermal_simple_zone">Setup for Zone</string>
 
     <!-- GPU -->
     <string name="gpu_2d_cur_freq">GPU 2D Current Frequency</string>

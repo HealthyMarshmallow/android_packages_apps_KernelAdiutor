@@ -559,11 +559,9 @@ public class Thermal implements Constants {
     }
 
     public static int getSimpleThermalUserMaxFreq () {
-        if (Utils.existFile(MSM_THERMAL_SIMPLE_USER_MAXFREQ)) {
-            String value = Utils.readFile(MSM_THERMAL_SIMPLE_USER_MAXFREQ);
-            if (value != null) return Utils.stringToInt(value);
-        }
-        return 0;
+        String value = Utils.readFile(MSM_THERMAL_SIMPLE_USER_MAXFREQ);
+        if (value.equals("0")) return 0;
+        return CPU.getFreqs().indexOf(Utils.stringToInt(value)) + 1;
     }
 
     public static boolean hasSimpleThermalSamplingMs() {
@@ -580,6 +578,20 @@ public class Thermal implements Constants {
             if (value != null) return Utils.stringToInt(value);
         }
         return 0;
+    }
+
+    public static boolean hasSimpleThermalZone(int zone_idx) {
+        return Utils.existFile(MSM_THERMAL_SIMPLE_ZONE + String.valueOf(zone_idx));
+    }
+
+    public static void setSimpleThermalZone(int zone_idx, String value, Context context) {
+        Control.runCommand(value, MSM_THERMAL_SIMPLE_ZONE + String.valueOf(zone_idx), Control.CommandType.GENERIC, context);
+    }
+
+    public static String getSimpleThermalZone(int zone_idx) {
+        String value = Utils.readFile(MSM_THERMAL_SIMPLE_ZONE + String.valueOf(zone_idx));
+        if (value != null) return value;
+        return null;
     }
 
     public static boolean hasThermalSettings() {
