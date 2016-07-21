@@ -152,7 +152,7 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
                 break;
 
             mSimpleThermalZone[i] = new EditTextCardView.DEditTextCard();
-            mSimpleThermalZone[i].setTitle(getString(R.string.msm_thermal_simple_zone) + String.valueOf(i));
+            mSimpleThermalZone[i].setTitle(String.format(getString(R.string.msm_thermal_simple_zone), String.valueOf(i)));
             String zoneValue = Thermal.getSimpleThermalZone(i);
             mSimpleThermalZone[i].setDescription(zoneValue);
             mSimpleThermalZone[i].setValue(zoneValue);
