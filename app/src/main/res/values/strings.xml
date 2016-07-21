@@ -442,6 +442,10 @@
     <string name="thermal_franco_thermal_poll">Polling Interval</string>
     <string name="thermal_franco_thermal_step">Thermal Step Value</string>
     <string name="thermal_franco_thermal_step_summary">This value is added on top of threshold to create trigger thresholds between each stage</string>
+    <string name="msm_thermal_simple">MSM Thermal Simple</string>
+    <string name="msm_thermal_simple_summary">An in-kernel replacement for QCOM Thermal. Developed by SultanXDA.</string>
+    <string name="msm_thermal_simple_user_maxfreq">User max frequency</string>
+    <string name="msm_thermal_simple_sampling_ms">Check interval</string>
 
     <!-- GPU -->
     <string name="gpu_2d_cur_freq">GPU 2D Current Frequency</string>

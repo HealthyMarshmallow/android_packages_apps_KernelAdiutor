@@ -538,6 +538,50 @@ public class Thermal implements Constants {
         return Utils.existFile(getThermalFile(PARAMETERS_ENABLED)) && hasCoreLimitTempDegC();
     }
 
+    public static boolean hasSimpleThermalEnable() {
+        return Utils.existFile(MSM_THERMAL_SIMPLE_ENABLED);
+    }
+
+    public static void activateSimpleThermal(boolean active, Context context) {
+        Control.runCommand(active ? "1" : "0", MSM_THERMAL_SIMPLE_ENABLED, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean isSimpleThermalActive() {
+        return Utils.readFile(MSM_THERMAL_SIMPLE_ENABLED).equals("1");
+    }
+
+    public static boolean hasSimpleThermalUserMaxFreq() {
+        return Utils.existFile(MSM_THERMAL_SIMPLE_USER_MAXFREQ);
+    }
+
+    public static void setSimpleThermalUserMaxFreq(int freq, Context context) {
+        Control.runCommand(String.valueOf(freq), MSM_THERMAL_SIMPLE_USER_MAXFREQ, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getSimpleThermalUserMaxFreq () {
+        if (Utils.existFile(MSM_THERMAL_SIMPLE_USER_MAXFREQ)) {
+            String value = Utils.readFile(MSM_THERMAL_SIMPLE_USER_MAXFREQ);
+            if (value != null) return Utils.stringToInt(value);
+        }
+        return 0;
+    }
+
+    public static boolean hasSimpleThermalSamplingMs() {
+        return Utils.existFile(MSM_THERMAL_SIMPLE_SAMPLING_MS);
+    }
+
+    public static void setSimpleThermalSamplingMs(int freq, Context context) {
+        Control.runCommand(String.valueOf(freq), MSM_THERMAL_SIMPLE_SAMPLING_MS, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getSimpleThermalSamplingMs () {
+        if (Utils.existFile(MSM_THERMAL_SIMPLE_SAMPLING_MS)) {
+            String value = Utils.readFile(MSM_THERMAL_SIMPLE_SAMPLING_MS);
+            if (value != null) return Utils.stringToInt(value);
+        }
+        return 0;
+    }
+
     public static boolean hasThermalSettings() {
         if (THERMAL_FILE == null) {
             if (Utils.existFile(MSM_THERMAL)) THERMAL_FILE = MSM_THERMAL;
@@ -564,7 +608,7 @@ public class Thermal implements Constants {
     }
 
     public static boolean hasThermal() {
-        if (hasThermald()) return true;
+        if (hasThermald() || hasSimpleThermalEnable()) return true;
         for (String[] arrays : THERMAL_ARRAYS)
             for (String file : arrays) if (Utils.existFile(file)) return true;
         return false;

@@ -380,6 +380,11 @@ public interface Constants {
     String THERMAL_FRANCO_STAGE_FOUR = "/sys/module/msm_thermal/parameters/freq_hell";
     String THERMAL_FRANCO_POLL = "/sys/module/msm_thermal/parameters/poll_interval";
     String THERMAL_FRANCO_STEP = "/sys/module/msm_thermal/parameters/temp_step";
+    String MSM_THERMAL_SIMPLE = "/sys/kernel/msm_thermal";
+    String MSM_THERMAL_SIMPLE_ENABLED = MSM_THERMAL_SIMPLE + "/enabled";
+    String MSM_THERMAL_SIMPLE_SAMPLING_MS = MSM_THERMAL_SIMPLE + "/sampling_ms";
+    String MSM_THERMAL_SIMPLE_USER_MAXFREQ = MSM_THERMAL_SIMPLE + "/user_maxfreq";
+    String MSM_THERMAL_SIMPLE_ZONE = MSM_THERMAL_SIMPLE + "/zone";
 
     String[] TEMP_LIMIT_ARRAY = {MSM_THERMAL_THROTTLE_TEMP, MSM_THERMAL_TEMP_MAX, MSM_THERMAL_TEMP_THRESHOLD,
             MSM_THERMAL_FREQ_LIMIT_DEBUG, MSM_THERMAL_MIN_FREQ_INDEX, TEMPCONTROL_TEMP_LIMIT, THERMAL_FRANCO_STAGE_ONE,

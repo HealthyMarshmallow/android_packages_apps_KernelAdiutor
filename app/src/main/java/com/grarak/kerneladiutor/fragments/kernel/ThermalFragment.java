@@ -60,6 +60,10 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
     private SwitchCardView.DSwitchCard mFreqLimitDebugCard;
     private PopupCardView.DPopupCard mMinFreqIndexCard;
 
+    private SwitchCardView.DSwitchCard mSimpleThermalEnableCard;
+    private SeekBarCardView.DSeekBarCard mSimpleThermalSamplingMs;
+    private PopupCardView.DPopupCard mSimpleThermalUserMaxFreq;
+
     private SeekBarCardView.DSeekBarCard mAllowedLowLowCard;
     private SeekBarCardView.DSeekBarCard mAllowedLowHighCard;
     private PopupCardView.DPopupCard mAllowedLowFreqCard;
@@ -89,6 +93,7 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
         if (Thermal.hasThermald()) thermaldInit();
         if (Thermal.hasThermalSettings()) thermalInit();
         if (Thermal.hasMsmThermal()) msmThermalInit();
+        if (Thermal.hasSimpleThermalEnable()) msmSimpleThermalInit();
     }
 
     private void thermaldInit() {
@@ -99,6 +104,44 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
         mThermaldCard.setOnDSwitchCardListener(this);
 
         addView(mThermaldCard);
+    }
+
+    private void msmSimpleThermalInit() {
+        if (Thermal.hasSimpleThermalEnable()) {
+            mSimpleThermalEnableCard = new SwitchCardView.DSwitchCard();
+            mSimpleThermalEnableCard.setTitle(getString(R.string.msm_thermal_simple));
+            mSimpleThermalEnableCard.setDescription(getString(R.string.msm_thermal_simple_summary));
+            mSimpleThermalEnableCard.setChecked(Thermal.isSimpleThermalActive());
+            mSimpleThermalEnableCard.setOnDSwitchCardListener(this);
+
+            addView(mSimpleThermalEnableCard);
+        }
+
+        if (Thermal.hasSimpleThermalSamplingMs()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 201; i++) list.add((i * 50) + getString(R.string.ms));
+
+            mSimpleThermalSamplingMs = new SeekBarCardView.DSeekBarCard(list);
+            mSimpleThermalSamplingMs.setTitle(getString(R.string.msm_thermal_simple_sampling_ms));
+            mSimpleThermalSamplingMs.setProgress(Thermal.getSimpleThermalSamplingMs() / 50);
+            mSimpleThermalSamplingMs.setOnDSeekBarCardListener(this);
+
+            addView(mSimpleThermalSamplingMs);
+        }
+
+        if (Thermal.hasSimpleThermalUserMaxFreq()) {
+            List<String> list = new ArrayList<>();
+            list.add(getString(R.string.disabled));
+            for (int freq : CPU.getFreqs())
+                list.add((freq / 1000) + getString(R.string.mhz));
+
+            mSimpleThermalUserMaxFreq = new PopupCardView.DPopupCard(list);
+            mSimpleThermalUserMaxFreq.setTitle(getString(R.string.msm_thermal_simple_user_maxfreq));
+            mSimpleThermalUserMaxFreq.setItem(Thermal.getSimpleThermalUserMaxFreq());
+            mSimpleThermalUserMaxFreq.setOnDPopupCardListener(this);
+
+            addView(mSimpleThermalUserMaxFreq);
+        }
     }
 
     private void thermalInit() {
@@ -656,6 +699,8 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             Thermal.activateTempThrottle(checked, getActivity());
         else if (dSwitchCard == mFreqLimitDebugCard)
             Thermal.activateFreqLimitDebug(checked, getActivity());
+        else if (dSwitchCard == mSimpleThermalEnableCard)
+            Thermal.activateSimpleThermal(checked, getActivity());
     }
 
     @Override
@@ -702,6 +747,8 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             Thermal.setShutdownTemp(position + 40, getActivity());
         else if (dSeekBarCard == mFrancoThermalStepCard)
             Thermal.setFrancoThermalStep(position, getActivity());
+        else if (dSeekBarCard == mSimpleThermalSamplingMs)
+            Thermal.setSimpleThermalSamplingMs(position * 50, getActivity());
     }
 
     @Override
@@ -724,6 +771,8 @@ public class ThermalFragment extends RecyclerViewFragment implements SwitchCardV
             Thermal.setFrancoThermalStageThree(CPU.getFreqs().get(position), getActivity());
         else if (dPopupCard == mFrancoThermalStageFourCard)
             Thermal.setFrancoThermalStageFour(CPU.getFreqs().get(position), getActivity());
+        else if (dPopupCard == mSimpleThermalUserMaxFreq)
+            Thermal.setSimpleThermalUserMaxFreq(position == 0 ? 0 : CPU.getFreqs().get(position - 1), getActivity());
     }
 
     @Override
