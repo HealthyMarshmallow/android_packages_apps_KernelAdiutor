@@ -199,7 +199,7 @@ public class VMFragment extends RecyclerViewFragment implements SeekBarCardView.
         mVFSCachePressureCard = new SeekBarCardView.DSeekBarCard(list);
         mVFSCachePressureCard.setTitle(getString(R.string.vfs_cache_pressure));
         mVFSCachePressureCard.setDescription(getString(R.string.vfs_cache_pressure_summary));
-        mVFSCachePressureCard.setProgress(VM.getVFSCachePressure() - 1);
+        mVFSCachePressureCard.setProgress(VM.getVFSCachePressure());
         mVFSCachePressureCard.setOnDSeekBarCardListener(this);
 
         addView(mVFSCachePressureCard);
@@ -290,7 +290,7 @@ public class VMFragment extends RecyclerViewFragment implements SeekBarCardView.
         else if (dSeekBarCard == mDirty_Writeback_ActiveCard) VM.setDirtyActiveWriteback(position + 1, getActivity());
         else if (dSeekBarCard == mOverCommitRatioCard) VM.setOverCommitRatio(position, getActivity());
         else if (dSeekBarCard == mSwappinessCard) VM.setSwappiness(position, getActivity());
-        else if (dSeekBarCard == mVFSCachePressureCard) VM.setVFSCachePressure(position + 1, getActivity());
+        else if (dSeekBarCard == mVFSCachePressureCard) VM.setVFSCachePressure(position, getActivity());
         else if (dSeekBarCard == mZRAMDisksizeCard) VM.setZRAMDisksize(position * 10, getActivity());
     }
 
