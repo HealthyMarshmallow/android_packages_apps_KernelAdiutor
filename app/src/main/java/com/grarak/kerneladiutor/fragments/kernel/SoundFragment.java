@@ -217,7 +217,7 @@ public class SoundFragment extends RecyclerViewFragment implements
 
     private void volumeGainInit() {
         mVolumeGainCard = new SeekBarCardView.DSeekBarCard(Sound.getVolumeGainLimits());
-        mVolumeGainCard.setTitle(getString(R.string.volume_gain));
+        mVolumeGainCard.setTitle(getString(R.string.headphone_gain));
         mVolumeGainCard.setProgress(Sound.getVolumeGainLimits().indexOf(Sound.getVolumeGain()));
         mVolumeGainCard.setOnDSeekBarCardListener(this);
 
