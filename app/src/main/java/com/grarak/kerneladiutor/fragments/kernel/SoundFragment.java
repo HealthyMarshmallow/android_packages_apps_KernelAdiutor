@@ -39,6 +39,7 @@ public class SoundFragment extends RecyclerViewFragment implements
     private SwitchCardView.DSwitchCard mHeadphoneGainIndependentCard;
     private SeekBarCardView.DSeekBarCard mHandsetMicrophoneGainCard;
     private SeekBarCardView.DSeekBarCard mCamMicrophoneGainCard;
+    private SeekBarCardView.DSeekBarCard mFCamMicrophoneGainCard;
     private SeekBarCardView.DSeekBarCard mSpeakerGainCard;
     private SeekBarCardView.DSeekBarCard mHeadphonePowerAmpGainCard;
     private SeekBarCardView.DSeekBarCard mMicrophoneGainCard;
@@ -61,6 +62,7 @@ public class SoundFragment extends RecyclerViewFragment implements
         if (Sound.hasHeadphoneGain()) headphoneGainInit();
         if (Sound.hasHandsetMicrophoneGain()) handsetMicrophoneGainInit();
         if (Sound.hasCamMicrophoneGain()) camMicrophoneGainInit();
+        if (Sound.hasFCamMicrophoneGain()) camFMicrophoneGainInit();
         if (Sound.hasSpeakerGain()) speakerGainInit();
         if (Sound.hasHeadphonePowerAmpGain()) headphonePowerAmpGainInit();
         if (Sound.hasMicrophoneGain()) microphoneGainInit();
@@ -204,6 +206,15 @@ public class SoundFragment extends RecyclerViewFragment implements
         addView(mMicrophoneGainCard);
     }
 
+    private void camFMicrophoneGainInit() {
+        mFCamMicrophoneGainCard = new SeekBarCardView.DSeekBarCard(Sound.getFCamMicrophoneGainLimits());
+        mFCamMicrophoneGainCard.setTitle(getString(R.string.cam_microphone_gain));
+        mFCamMicrophoneGainCard.setProgress(Sound.getMicrophoneGainLimits().indexOf(Sound.getFCamMicrophoneGain()));
+        mFCamMicrophoneGainCard.setOnDSeekBarCardListener(this);
+
+        addView(mFCamMicrophoneGainCard);
+    }
+
     private void volumeGainInit() {
         mVolumeGainCard = new SeekBarCardView.DSeekBarCard(Sound.getVolumeGainLimits());
         mVolumeGainCard.setTitle(getString(R.string.volume_gain));
@@ -246,6 +257,8 @@ public class SoundFragment extends RecyclerViewFragment implements
             Sound.setHandsetMicrophoneGain(Sound.getHandsetMicrophoneGainLimits().get(position), getActivity());
         else if (dSeekBarCard == mCamMicrophoneGainCard)
             Sound.setCamMicrophoneGain(Sound.getCamMicrophoneGainLimits().get(position), getActivity());
+        else if (dSeekBarCard == mFCamMicrophoneGainCard)
+            Sound.setFCamMicrophoneGain(Sound.getFCamMicrophoneGainLimits().get(position), getActivity());
         else if (dSeekBarCard == mSpeakerGainCard)
             Sound.setSpeakerGain(Sound.getSpeakerGainLimits().get(position), getActivity());
         else if (dSeekBarCard == mHeadphonePowerAmpGainCard)

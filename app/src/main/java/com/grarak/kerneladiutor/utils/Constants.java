@@ -749,6 +749,7 @@ public interface Constants {
     String FRANCO_SOUND = "/sys/devices/virtual/misc/soundcontrol";
     String HIGHPERF_MODE_ENABLE = "/sys/devices/virtual/misc/soundcontrol/highperf_enabled";
     String MIC_BOOST = "/sys/devices/virtual/misc/soundcontrol/mic_boost";
+    String CAM_MIC_BOOST = "/sys/devices/virtual/misc/soundcontrol/camera_mic_boost";
     String SPEAKER_BOOST = "/sys/devices/virtual/misc/soundcontrol/speaker_boost";
     String VOLUME_BOOST = "/sys/devices/virtual/misc/soundcontrol/volume_boost";
 

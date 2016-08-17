@@ -64,6 +64,22 @@ public class Sound implements Constants {
         return Utils.existFile(MIC_BOOST);
     }
 
+    public static void setFCamMicrophoneGain(String value, Context context) {
+        Control.runCommand(value, CAM_MIC_BOOST, Control.CommandType.GENERIC, context);
+    }
+
+    public static String getFCamMicrophoneGain() {
+        return Utils.readFile(CAM_MIC_BOOST);
+    }
+
+    public static List<String> getFCamMicrophoneGainLimits() {
+        return getFrancoSoundLimits();
+    }
+
+    public static boolean hasFCamMicrophoneGain() {
+        return Utils.existFile(CAM_MIC_BOOST);
+    }
+
     public static void setHeadphonePowerAmpGain(String value, Context context) {
         Control.runCommand(value + " " + value, HEADPHONE_POWERAMP_GAIN, Control.CommandType.FAUX_GENERIC, context);
     }
@@ -119,7 +135,7 @@ public class Sound implements Constants {
 
     public static List<String> getFrancoSoundLimits() {
         List<String> list = new ArrayList<>();
-        for (int i = -20; i < 21; i++)
+        for (int i = 0; i < 21; i++)
             list.add(String.valueOf(i));
         return list;
     }
