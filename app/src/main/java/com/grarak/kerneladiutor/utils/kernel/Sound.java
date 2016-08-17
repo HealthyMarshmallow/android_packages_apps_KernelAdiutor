@@ -135,7 +135,7 @@ public class Sound implements Constants {
 
     public static List<String> getFrancoSoundLimits() {
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 21; i++)
+        for (int i = 0; i < 31; i++)
             list.add(String.valueOf(i));
         return list;
     }
