@@ -1143,12 +1143,12 @@ public class CPUHotplug implements Constants {
         return Utils.existFile(HOTPLUG_MSM_FAST_LANE_LOAD);
     }
 
-    public static void setMsmHotplugUpdateRate(int value, Context context) {
-        Control.runCommand(String.valueOf(value), MSM_HOTPLUG_UPDATE_RATE_FILE, Control.CommandType.GENERIC, context);
+    public static void setMsmHotplugUpdateRate(String value, Context context) {
+        Control.runCommand(value, MSM_HOTPLUG_UPDATE_RATE_FILE, Control.CommandType.GENERIC, context);
     }
 
-    public static int getMsmHotplugUpdateRate() {
-        return Utils.stringToInt(Utils.readFile(MSM_HOTPLUG_UPDATE_RATE_FILE));
+    public static String getMsmHotplugUpdateRate() {
+        return Utils.readFile(MSM_HOTPLUG_UPDATE_RATE_FILE);
     }
 
     public static boolean hasMsmHotplugUpdateRate() {

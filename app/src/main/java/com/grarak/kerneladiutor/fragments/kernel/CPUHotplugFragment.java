@@ -21,6 +21,7 @@ import android.os.Bundle;
 import com.grarak.kerneladiutor.R;
 import com.grarak.kerneladiutor.elements.DAdapter;
 import com.grarak.kerneladiutor.elements.DDivider;
+import com.grarak.kerneladiutor.elements.cards.EditTextCardView;
 import com.grarak.kerneladiutor.elements.cards.PopupCardView;
 import com.grarak.kerneladiutor.elements.cards.SeekBarCardView;
 import com.grarak.kerneladiutor.elements.cards.SwitchCardView;
@@ -81,7 +82,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
     private SeekBarCardView.DSeekBarCard mMsmHotplugBoostLockDurationCard;
     private SeekBarCardView.DSeekBarCard mMsmHotplugDownLockDurationCard;
     private SeekBarCardView.DSeekBarCard mMsmHotplugHistorySizeCard;
-    private SeekBarCardView.DSeekBarCard mMsmHotplugUpdateRateCard;
+    private EditTextCardView.DEditTextCard mMsmHotplugUpdateRateCard;
     private SeekBarCardView.DSeekBarCard mMsmHotplugFastLaneLoadCard;
     private PopupCardView.DPopupCard mMsmHotplugFastLaneMinFreqCard;
     private SeekBarCardView.DSeekBarCard mMsmHotplugOfflineLoadCard;
@@ -877,16 +878,18 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             }
 
             if (CPUHotplug.hasMsmHotplugUpdateRate()) {
-                List<String> list = new ArrayList<>();
-                for (int i = 0; i < 201; i++)
-                    list.add(String.valueOf(i));
-
-                mMsmHotplugUpdateRateCard = new SeekBarCardView.DSeekBarCard(list);
-                mMsmHotplugUpdateRateCard.setTitle(getString(R.string.update_rate));
-                mMsmHotplugUpdateRateCard.setDescription(getString(R.string.update_rate_summary));
-                mMsmHotplugUpdateRateCard.setProgress(CPUHotplug.getMsmHotplugUpdateRate());
-                mMsmHotplugUpdateRateCard.setOnDSeekBarCardListener(this);
-
+                String rate = CPUHotplug.getMsmHotplugUpdateRate();
+                mMsmHotplugUpdateRateCard = new EditTextCardView.DEditTextCard();
+                mMsmHotplugUpdateRateCard.setTitle(getString(R.string.update_rate) + ". " + getString(R.string.update_rate_summary));
+                mMsmHotplugUpdateRateCard.setDescription(rate);
+                mMsmHotplugUpdateRateCard.setValue(rate);
+                mMsmHotplugUpdateRateCard.setOnDEditTextCardListener(new EditTextCardView.DEditTextCard.OnDEditTextCardListener() {
+                    @Override
+                    public void onApply(EditTextCardView.DEditTextCard dEditTextCard, String value) {
+                        CPUHotplug.setMsmHotplugUpdateRate(value, getActivity());
+                        dEditTextCard.setDescription(value);
+                    }
+                });
                 views.add(mMsmHotplugUpdateRateCard);
             }
 
@@ -2271,8 +2274,6 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             CPUHotplug.setMsmHotplugDownLockDuration(position + 1, getActivity());
         else if (dSeekBarCard == mMsmHotplugHistorySizeCard)
             CPUHotplug.setMsmHotplugHistorySize(position + 1, getActivity());
-        else if (dSeekBarCard == mMsmHotplugUpdateRateCard)
-            CPUHotplug.setMsmHotplugUpdateRate(position, getActivity());
         else if (dSeekBarCard == mMsmHotplugFastLaneLoadCard)
             CPUHotplug.setMsmHotplugFastLaneLoad(position, getActivity());
         else if (dSeekBarCard == mMsmHotplugOfflineLoadCard)
