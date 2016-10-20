@@ -120,13 +120,13 @@ public class StartUpCommandsFragment extends RecyclerViewFragment {
                                             switch (which) {
                                                 case 0: {
                                                     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                                    ClipData clip = ClipData.newPlainText("Startup Comnmands Shell", allcommands);
+                                                    ClipData clip = ClipData.newPlainText("Startup Commands Shell", allcommands);
                                                     clipboard.setPrimaryClip(clip);
                                                     break;
                                                 }
                                                 case 1: {
                                                     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                                    ClipData clip = ClipData.newPlainText("Startup Comnmands RC", convert_to_rc(allcommands));
+                                                    ClipData clip = ClipData.newPlainText("Startup Commands RC", convert_to_rc(allcommands));
                                                     clipboard.setPrimaryClip(clip);
                                                     break;
                                                 }
@@ -167,7 +167,7 @@ public class StartUpCommandsFragment extends RecyclerViewFragment {
                                                                         switch (which) {
                                                                             case 0: {
                                                                                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                                                                ClipData clip = ClipData.newPlainText("Startup Comnmand", command);
+                                                                                ClipData clip = ClipData.newPlainText("Startup Command", command);
                                                                                 clipboard.setPrimaryClip(clip);
                                                                                 break;
                                                                             }
